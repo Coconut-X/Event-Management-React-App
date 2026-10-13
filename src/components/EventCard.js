@@ -1,0 +1,32 @@
+import { Link } from "react-router-dom";
+import { formatDate } from "../utils/helpers";
+
+// Used on the Events page and on My Events.
+// The button is passed in as children because it's different on each page.
+function EventCard({ event, children }) {
+  return (
+    <div className="card">
+      {event.image && (
+        <img src={event.image} alt={event.name} className="card__img" />
+      )}
+
+      <div className="card__body">
+        <span className="badge">{event.category}</span>
+        <h3 className="card__title">{event.name}</h3>
+        <p className="card__meta">{formatDate(event.date)}</p>
+        <p className="card__meta">
+          {event.venue}, {event.city}
+        </p>
+
+        <div className="card__actions">
+          <Link to={`/events/${event.id}`} className="btn">
+            Details
+          </Link>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default EventCard;
