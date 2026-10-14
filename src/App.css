@@ -1,4 +1,4 @@
-/* ----- layout ----- */
+/*----- layout -----*/
 
 .container {
   max-width: 1100px;
@@ -6,7 +6,7 @@
   padding: 20px;
 }
 
-/* ----- navbar ----- */
+/*----- navbar -----*/
 
 .navbar {
   display: flex;
@@ -27,7 +27,7 @@
 .navbar__links {
   display: flex;
   gap: 10px;
-  margin-right: auto; /* pushes the login buttons to the right */
+  margin-right: auto; /*pushes the login buttons to the right*/
 }
 
 .navbar__link {
@@ -36,10 +36,23 @@
   border-radius: 5px;
 }
 
-/* NavLink puts this class on the current page */
+/*NavLink puts this class on the current page*/
 .navbar__link.active {
   background: #eee;
   color: #222;
+}
+
+/*little number bubble next to My Events*/
+.count {
+  display: inline-block;
+  background: #4a3aff;
+  color: #fff;
+  font-size: 11px;
+  min-width: 18px;
+  padding: 1px 5px;
+  margin-left: 6px;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .navbar__auth {
@@ -53,7 +66,7 @@
   color: #555;
 }
 
-/* ----- buttons ----- */
+/*----- buttons -----*/
 
 .btn {
   padding: 8px 14px;
@@ -90,7 +103,7 @@
   color: #d64545;
 }
 
-/* ----- filters ----- */
+/*----- filters -----*/
 
 .filters {
   display: flex;
@@ -107,7 +120,13 @@
   font-size: 14px;
 }
 
-/* ----- event cards ----- */
+.results {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 15px;
+}
+
+/*----- event cards -----*/
 
 .grid {
   display: grid;
@@ -151,7 +170,7 @@
 .card__actions {
   display: flex;
   gap: 10px;
-  margin-top: auto; /* keeps buttons at the bottom of every card */
+  margin-top: auto; /*keeps buttons at the bottom of every card*/
   padding-top: 12px;
 }
 
@@ -165,7 +184,7 @@
   text-transform: uppercase;
 }
 
-/* ----- event details ----- */
+/*----- event details -----*/
 
 .details {
   display: grid;
@@ -185,7 +204,7 @@
   width: 100%;
 }
 
-/* ----- tabs on My Events ----- */
+/*----- tabs on My Events -----*/
 
 .tabs {
   display: flex;
@@ -209,7 +228,7 @@
   border-bottom-color: #4a3aff;
 }
 
-/* ----- login / register forms ----- */
+/*----- login and register forms -----*/
 
 .auth {
   display: flex;
@@ -258,7 +277,7 @@
   margin: 0 0 10px;
 }
 
-/* ----- message bar ----- */
+/*----- message bar -----*/
 
 .message {
   display: flex;
@@ -288,7 +307,7 @@
   cursor: pointer;
 }
 
-/* ----- pagination ----- */
+/*----- pagination -----*/
 
 .pagination {
   display: flex;
