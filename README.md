@@ -16,8 +16,11 @@ Built with React, Redux Toolkit and React Router.
 - Event details page
 - Register for an event (duplicates are blocked)
 - My Events page split into Upcoming and Completed
-- Cancel a registration
+- Cancel a registration, with a confirm box first
 - My Events is a protected route, guests get sent to login
+- Ticket price, genre and sold out status pulled from the API
+- Count badge on the My Events link and a total results count
+- Success and error messages that hide themselves after a few seconds
 
 ## How to run
 
@@ -85,7 +88,7 @@ src/
 
 ```
 auth          -> user, users, error
-events        -> list, selected, loading, error, filters, totalPages
+events        -> list, selected, loading, error, filters, totalPages, totalEvents
 registrations -> list, message
 ```
 
