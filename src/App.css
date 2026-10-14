@@ -134,6 +134,28 @@
   gap: 20px;
 }
 
+/*on a phone 250px cards get squashed so go single column*/
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /*filter inputs sit side by side on desktop but need full width here*/
+  .filters input,
+  .filters select,
+  .filters .btn {
+    width: 100%;
+  }
+
+  .navbar {
+    justify-content: center;
+  }
+
+  .navbar__links {
+    margin-right: 0;
+  }
+}
+
 .card {
   display: flex;
   flex-direction: column;
