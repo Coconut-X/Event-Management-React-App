@@ -10,10 +10,17 @@ export async function searchEvents(filters) {
 
   let url = `${BASE_URL}/events.json?apikey=${API_KEY}&size=20&sort=date,asc`;
 
-  if (keyword) url += `&keyword=${keyword}`;
-  if (city) url += `&city=${city}`;
-  if (category) url += `&classificationName=${category}`;
-  if (date) url += `&startDateTime=${date}T00:00:00Z`;
+  //the API matches whole words so typing unive finds nothing
+  //a star at the end makes it match the start of a word instead
+  if (keyword) url += `&keyword=${encodeURIComponent(keyword.trim())}*`;
+  if (city) url += `&city=${encodeURIComponent(city.trim())}`;
+  if (category) url += `&classificationName=${encodeURIComponent(category)}`;
+  //with no date we still cut off the past so the list is only upcoming events
+  if (date) {
+    url += `&startDateTime=${date}T00:00:00Z`;
+  } else {
+    url += `&startDateTime=${new Date().toISOString().slice(0, 19)}Z`;
+  }
   if (page) url += `&page=${page}`;
 
   const res = await fetch(url);
