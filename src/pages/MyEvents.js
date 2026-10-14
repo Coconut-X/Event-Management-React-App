@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import EventCard from "../components/EventCard";
 import Message from "../components/Message";
 import { cancelEvent } from "../features/registrations/registrationsSlice";
@@ -49,7 +50,11 @@ function MyEvents() {
         </button>
       </div>
 
-      {shown.length === 0 && <p>No events here yet.</p>}
+      {shown.length === 0 && (
+        <p>
+          No events here yet. <Link to="/events">Browse events</Link>
+        </p>
+      )}
 
       <div className="grid">
         {shown.map((r) => (

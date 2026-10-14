@@ -19,6 +19,8 @@ function Events() {
   //load events on first render and whenever the filters change
   useEffect(() => {
     dispatch(fetchEvents(filters));
+    //jump back up or page 2 opens half way down the list
+    window.scrollTo(0, 0);
   }, [dispatch, filters]);
 
   //check if the logged in user already registered for this event

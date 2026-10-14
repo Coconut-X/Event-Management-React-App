@@ -17,6 +17,8 @@ function EventCard({ event, children }) {
         <p className="card__meta">
           {event.venue}, {event.city}
         </p>
+        {/*most events do not send a price so we only show it when they do*/}
+        {event.price && <p className="card__meta">{event.price}</p>}
 
         <div className="card__actions">
           <Link to={`/events/${event.id}`} className="btn">
