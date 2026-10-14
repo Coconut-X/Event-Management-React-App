@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getEvent, searchEvents } from "../../api/ticketmaster";
 
-// createAsyncThunk gives us pending/fulfilled/rejected for free
+//createAsyncThunk gives us pending/fulfilled/rejected for free
 export const fetchEvents = createAsyncThunk("events/fetchEvents", (filters) =>
   searchEvents(filters)
 );
@@ -18,6 +18,7 @@ const eventsSlice = createSlice({
     loading: false,
     error: null,
     totalPages: 0,
+    totalEvents: 0,
     filters: {
       keyword: "",
       city: "",
@@ -28,7 +29,7 @@ const eventsSlice = createSlice({
   },
   reducers: {
     setFilters(state, action) {
-      // action.payload is like { keyword: "rock", city: "Lahore" }
+      //action.payload is like { keyword: "rock", city: "Lahore" }
       state.filters = { ...state.filters, ...action.payload, page: 0 };
     },
     setPage(state, action) {
@@ -45,6 +46,7 @@ const eventsSlice = createSlice({
         state.loading = false;
         state.list = action.payload.events;
         state.totalPages = action.payload.totalPages;
+        state.totalEvents = action.payload.totalEvents;
       })
       .addCase(fetchEvents.rejected, (state, action) => {
         state.loading = false;

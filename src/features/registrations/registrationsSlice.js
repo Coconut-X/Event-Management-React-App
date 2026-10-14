@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Every registration stores the userId so different users don't see
-// each other's events. We also save a copy of the event details so
-// My Events doesn't have to call the API again.
+//every registration keeps the userId so users do not see each others events
+//we also save a copy of the event so My Events does not call the API again
 
 function getSaved() {
   const data = localStorage.getItem("registrations");
@@ -13,13 +12,13 @@ const registrationsSlice = createSlice({
   name: "registrations",
   initialState: {
     list: getSaved(),
-    message: null, // shown to the user after registering / cancelling
+    message: null, //shown after registering or cancelling
   },
   reducers: {
     registerEvent(state, action) {
       const { userId, event } = action.payload;
 
-      // stop duplicate registration
+      //stop duplicate registration
       const already = state.list.find(
         (r) => r.userId === userId && r.event.id === event.id
       );

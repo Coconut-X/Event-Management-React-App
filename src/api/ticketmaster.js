@@ -1,10 +1,10 @@
-// All Ticketmaster API calls live here.
-// API key comes from .env (REACT_APP_TM_API_KEY)
+//all Ticketmaster API calls live here
+//API key comes from .env as REACT_APP_TM_API_KEY
 
 const BASE_URL = "https://app.ticketmaster.com/discovery/v2";
 const API_KEY = process.env.REACT_APP_TM_API_KEY;
 
-// Get a list of events. All params are optional.
+//get a list of events with optional filters
 export async function searchEvents(filters) {
   const { keyword, city, category, date, page } = filters;
 
@@ -21,17 +21,17 @@ export async function searchEvents(filters) {
 
   const data = await res.json();
 
-  // _embedded is missing when there are no results
+  //_embedded is missing when there are no results
   const events = data._embedded ? data._embedded.events : [];
 
   return {
     events: events.map(makeEvent),
     totalPages: data.page.totalPages,
-    currentPage: data.page.number,
+    totalEvents: data.page.totalElements,
   };
 }
 
-// Get one event by id
+//get one event by id
 export async function getEvent(id) {
   const res = await fetch(`${BASE_URL}/events/${id}.json?apikey=${API_KEY}`);
   if (!res.ok) throw new Error("Could not load this event");
@@ -40,10 +40,13 @@ export async function getEvent(id) {
   return makeEvent(data);
 }
 
-// The API response is nested really deep, so we pull out only what we need
+//the API response is nested really deep so we pull out only what we need
 function makeEvent(e) {
   const venue = e._embedded && e._embedded.venues ? e._embedded.venues[0] : null;
   const type = e.classifications ? e.classifications[0] : null;
+
+  //not every event has prices so we build the text only if it is there
+  const price = e.priceRanges ? e.priceRanges[0] : null;
 
   return {
     id: e.id,
@@ -56,5 +59,8 @@ function makeEvent(e) {
     city: venue && venue.city ? venue.city.name : "",
     country: venue && venue.country ? venue.country.name : "",
     category: type && type.segment ? type.segment.name : "Other",
+    genre: type && type.genre ? type.genre.name : "",
+    price: price ? `${price.currency} ${price.min} - ${price.max}` : "",
+    status: e.dates.status ? e.dates.status.code : "",
   };
 }

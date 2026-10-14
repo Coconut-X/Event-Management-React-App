@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Fake login, no backend. Users are just kept in localStorage.
-// (Storing passwords like this is obviously not safe, but the
-// assignment says a real backend is not needed.)
+//fake login with no backend
+//users are kept in localStorage so the passwords are plain text
+//that is fine for this assignment but never ok in a real app
 
 function getSaved(key) {
   const data = localStorage.getItem(key);
@@ -20,7 +20,7 @@ const authSlice = createSlice({
     register(state, action) {
       const { name, email, password } = action.payload;
 
-      // don't allow the same email twice
+      //do not allow the same email twice
       const taken = state.users.find((u) => u.email === email);
       if (taken) {
         state.error = "This email is already registered";
@@ -30,7 +30,7 @@ const authSlice = createSlice({
       const newUser = { id: Date.now(), name, email, password };
       state.users.push(newUser);
 
-      // log them in right away
+      //log them in right away
       state.user = { id: newUser.id, name, email };
       state.error = null;
 
@@ -50,7 +50,7 @@ const authSlice = createSlice({
         return;
       }
 
-      // keep the password out of the logged in user
+      //keep the password out of the logged in user
       state.user = { id: found.id, name: found.name, email: found.email };
       state.error = null;
       localStorage.setItem("user", JSON.stringify(state.user));

@@ -6,8 +6,8 @@ import App from "./App";
 import { store } from "./app/store";
 import "./index.css";
 
-// Provider and BrowserRouter have to be above App so every
-// component can use useSelector / useDispatch and the router hooks
+//Provider and BrowserRouter have to be above App so every component
+//can use useSelector useDispatch and the router hooks
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
