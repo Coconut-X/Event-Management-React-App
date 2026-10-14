@@ -17,10 +17,11 @@ function Message({ message }) {
 
   if (!message) return null;
 
+  //sits on top of the page so the feedback is hard to miss
   return (
-    <div className={`message message--${message.type}`}>
-      {message.text}
-      <button onClick={() => dispatch(clearMessage())}>x</button>
+    <div className={`toast toast--${message.type}`}>
+      <span>{message.text}</span>
+      <button onClick={() => dispatch(clearMessage())}>&times;</button>
     </div>
   );
 }

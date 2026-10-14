@@ -51,7 +51,7 @@ function MyEvents() {
       </div>
 
       {shown.length === 0 && (
-        <p>
+        <p className="note">
           No events here yet. <Link to="/events">Browse events</Link>
         </p>
       )}

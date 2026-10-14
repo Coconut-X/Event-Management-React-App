@@ -1,12 +1,45 @@
+/*the two tones of the theme live here so the rest of the css just uses them*/
+:root {
+  --sand: #f3efe7;
+  --surface: #fbf9f5;
+  --line: #e0d9cb;
+  --pine: #2b4a40;
+  --pine-soft: #e6ece7;
+  --ink: #1f2320;
+  --muted: #76756d;
+  --clay: #9c4f3c;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: #f4f5f7;
-  color: #222;
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/*serif headings keep it from looking like every other bootstrap page*/
+h1,
+h2,
+h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: normal;
+  letter-spacing: -0.01em;
+  color: var(--pine);
+  margin: 0 0 10px;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 22px;
 }
 
 img {
@@ -15,10 +48,14 @@ img {
 }
 
 a {
-  color: #4a3aff;
+  color: var(--pine);
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
+}
+
+p {
+  margin: 0 0 10px;
 }

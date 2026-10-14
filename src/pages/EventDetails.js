@@ -28,8 +28,8 @@ function EventDetails() {
     (r) => user && r.userId === user.id && r.event.id === id
   );
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p className="error">{error}</p>;
+  if (loading) return <p className="note">Loading...</p>;
+  if (error) return <p className="note error">{error}</p>;
   if (!selected) return null;
 
   //the API sends onsale, offsale, cancelled or rescheduled
@@ -51,7 +51,9 @@ function EventDetails() {
 
   return (
     <div>
-      <Link to="/events">&larr; Back to events</Link>
+      <Link to="/events" className="back">
+        &larr; Back to events
+      </Link>
 
       <Message message={message} />
 
@@ -64,54 +66,64 @@ function EventDetails() {
           <span className="badge">{selected.category}</span>
           <h1>{selected.name}</h1>
 
-          <p>
-            <b>Date:</b> {formatDate(selected.date)}
-          </p>
-          <p>
-            <b>Venue:</b> {selected.venue}
-          </p>
-          <p>
-            <b>Location:</b> {selected.city}, {selected.country}
-          </p>
+          <div className="details__row">
+            <span className="details__label">Date</span>
+            <span>{formatDate(selected.date)}</span>
+          </div>
+
+          <div className="details__row">
+            <span className="details__label">Venue</span>
+            <span>{selected.venue}</span>
+          </div>
+
+          <div className="details__row">
+            <span className="details__label">Location</span>
+            <span>
+              {selected.city}
+              {selected.country && `, ${selected.country}`}
+            </span>
+          </div>
 
           {selected.genre && (
-            <p>
-              <b>Type:</b> {selected.genre}
-            </p>
+            <div className="details__row">
+              <span className="details__label">Type</span>
+              <span>{selected.genre}</span>
+            </div>
           )}
 
           {selected.price && (
-            <p>
-              <b>Tickets:</b> {selected.price}
-            </p>
+            <div className="details__row">
+              <span className="details__label">Tickets</span>
+              <span>{selected.price}</span>
+            </div>
           )}
 
-          <button
-            className="btn btn--primary"
-            onClick={handleClick}
-            disabled={soldOut && !registered}
-          >
-            {!user
-              ? "Login to register"
-              : registered
-              ? "Cancel registration"
-              : soldOut
-              ? "Sold out"
-              : "Register"}
-          </button>
+          <div className="details__actions">
+            <button
+              className={registered ? "btn btn--danger" : "btn btn--primary"}
+              onClick={handleClick}
+              disabled={soldOut && !registered}
+            >
+              {!user
+                ? "Login to register"
+                : registered
+                ? "Cancel registration"
+                : soldOut
+                ? "Sold out"
+                : "Register"}
+            </button>
 
-          {selected.url && (
-            <p>
+            {selected.url && (
               <a href={selected.url} target="_blank" rel="noreferrer">
                 View on Ticketmaster
               </a>
-            </p>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
       {selected.info && (
-        <div>
+        <div className="about">
           <h2>About this event</h2>
           <p>{selected.info}</p>
         </div>
