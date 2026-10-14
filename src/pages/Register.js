@@ -17,7 +17,7 @@ function Register() {
   const user = useSelector((state) => state.auth.user);
   const error = useSelector((state) => state.auth.error);
 
-  // register() also logs the user in, so we wait for that
+  //register() also logs the user in so we wait for that
   useEffect(() => {
     if (user) navigate("/events");
   }, [user, navigate]);

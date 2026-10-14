@@ -1,4 +1,4 @@
-// Small helpers used in a few places
+//small helpers used in a few places
 
 export function formatDate(date) {
   if (!date) return "Date not announced";
@@ -12,7 +12,7 @@ export function formatDate(date) {
   });
 }
 
-// used to split My Events into upcoming / completed
+//used to split My Events into upcoming and completed
 export function isPast(date) {
   return new Date(date) < new Date();
 }

@@ -10,7 +10,7 @@ import {
 import { formatDate } from "../utils/helpers";
 
 function EventDetails() {
-  const { id } = useParams(); // comes from the route "/events/:id"
+  const { id } = useParams(); //comes from the route /events/:id
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,8 +32,11 @@ function EventDetails() {
   if (error) return <p className="error">{error}</p>;
   if (!selected) return null;
 
+  //the API sends onsale, offsale, cancelled or rescheduled
+  const soldOut = selected.status === "offsale" || selected.status === "cancelled";
+
   function handleClick() {
-    // send guests to login first
+    //send guests to login first
     if (!user) {
       navigate("/login");
       return;
@@ -71,8 +74,30 @@ function EventDetails() {
             <b>Location:</b> {selected.city}, {selected.country}
           </p>
 
-          <button className="btn btn--primary" onClick={handleClick}>
-            {!user ? "Login to register" : registered ? "Cancel registration" : "Register"}
+          {selected.genre && (
+            <p>
+              <b>Type:</b> {selected.genre}
+            </p>
+          )}
+
+          {selected.price && (
+            <p>
+              <b>Tickets:</b> {selected.price}
+            </p>
+          )}
+
+          <button
+            className="btn btn--primary"
+            onClick={handleClick}
+            disabled={soldOut && !registered}
+          >
+            {!user
+              ? "Login to register"
+              : registered
+              ? "Cancel registration"
+              : soldOut
+              ? "Sold out"
+              : "Register"}
           </button>
 
           {selected.url && (

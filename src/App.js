@@ -22,7 +22,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventDetails />} />
 
-          {/* only for logged in users */}
+          {/*only for logged in users*/}
           <Route
             path="/my-events"
             element={

@@ -12,7 +12,7 @@ function Login() {
   const user = useSelector((state) => state.auth.user);
   const error = useSelector((state) => state.auth.error);
 
-  // go to events once the login actually worked
+  //go to events once the login actually worked
   useEffect(() => {
     if (user) navigate("/events");
   }, [user, navigate]);

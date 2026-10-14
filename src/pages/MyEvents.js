@@ -13,13 +13,20 @@ function MyEvents() {
   const registrations = useSelector((state) => state.registrations.list);
   const message = useSelector((state) => state.registrations.message);
 
-  // only this user's registrations
+  //only the registrations of the logged in user
   const mine = registrations.filter((r) => r.userId === user.id);
 
   const upcoming = mine.filter((r) => !isPast(r.event.date));
   const completed = mine.filter((r) => isPast(r.event.date));
 
   const shown = tab === "upcoming" ? upcoming : completed;
+
+  //ask first so one wrong click does not remove a registration
+  function handleCancel(event) {
+    if (window.confirm(`Cancel your registration for ${event.name}?`)) {
+      dispatch(cancelEvent({ userId: user.id, eventId: event.id }));
+    }
+  }
 
   return (
     <div>
@@ -47,15 +54,11 @@ function MyEvents() {
       <div className="grid">
         {shown.map((r) => (
           <EventCard key={r.event.id} event={r.event}>
-            {/* no point cancelling an event that already happened */}
+            {/*no point cancelling an event that already happened*/}
             {tab === "upcoming" && (
               <button
                 className="btn btn--danger"
-                onClick={() =>
-                  dispatch(
-                    cancelEvent({ userId: user.id, eventId: r.event.id })
-                  )
-                }
+                onClick={() => handleCancel(r.event)}
               >
                 Cancel
               </button>

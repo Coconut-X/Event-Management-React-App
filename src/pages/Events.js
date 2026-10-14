@@ -9,19 +9,19 @@ import { registerEvent } from "../features/registrations/registrationsSlice";
 function Events() {
   const dispatch = useDispatch();
 
-  const { list, loading, error, filters, totalPages } = useSelector(
+  const { list, loading, error, filters, totalPages, totalEvents } = useSelector(
     (state) => state.events
   );
   const user = useSelector((state) => state.auth.user);
   const registrations = useSelector((state) => state.registrations.list);
   const message = useSelector((state) => state.registrations.message);
 
-  // load events on first render and whenever the filters change
+  //load events on first render and whenever the filters change
   useEffect(() => {
     dispatch(fetchEvents(filters));
   }, [dispatch, filters]);
 
-  // check if the logged in user already registered for this event
+  //check if the logged in user already registered for this event
   function isRegistered(eventId) {
     return registrations.some(
       (r) => r.userId === user.id && r.event.id === eventId
@@ -40,10 +40,14 @@ function Events() {
 
       {!loading && !error && list.length === 0 && <p>No events found.</p>}
 
+      {!loading && !error && list.length > 0 && (
+        <p className="results">{totalEvents} events found</p>
+      )}
+
       <div className="grid">
         {list.map((event) => (
           <EventCard key={event.id} event={event}>
-            {/* only logged in users see the register button */}
+            {/*only logged in users see the register button*/}
             {user &&
               (isRegistered(event.id) ? (
                 <button className="btn" disabled>
