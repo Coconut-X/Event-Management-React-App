@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { formatDate } from "../utils/helpers";
 
-// Used on the Events page and on My Events.
-// The button is passed in as children because it's different on each page.
+//used on the Events page and on My Events
+//the button is passed as children because it is different on each page
 function EventCard({ event, children }) {
   return (
     <div className="card">

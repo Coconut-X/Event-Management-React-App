@@ -4,8 +4,14 @@ import { logout } from "../features/auth/authSlice";
 
 function Navbar() {
   const user = useSelector((state) => state.auth.user);
+  const registrations = useSelector((state) => state.registrations.list);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  //how many events this user signed up for
+  const myCount = user
+    ? registrations.filter((r) => r.userId === user.id).length
+    : 0;
 
   function handleLogout() {
     dispatch(logout());
@@ -19,13 +25,14 @@ function Navbar() {
       </Link>
 
       <nav className="navbar__links">
-        {/* NavLink adds the "active" class on the current page */}
+        {/*NavLink adds the active class on the current page*/}
         <NavLink to="/events" className="navbar__link">
           Events
         </NavLink>
         {user && (
           <NavLink to="/my-events" className="navbar__link">
             My Events
+            {myCount > 0 && <span className="count">{myCount}</span>}
           </NavLink>
         )}
       </nav>

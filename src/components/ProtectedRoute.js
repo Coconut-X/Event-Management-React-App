@@ -1,8 +1,8 @@
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-// Wraps a page that only logged in users should see.
-// Used in App.js like: <ProtectedRoute><MyEvents /></ProtectedRoute>
+//wraps a page that only logged in users should see
+//used in App.js like <ProtectedRoute><MyEvents /></ProtectedRoute>
 function ProtectedRoute({ children }) {
   const user = useSelector((state) => state.auth.user);
 

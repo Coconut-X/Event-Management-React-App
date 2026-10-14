@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setFilters } from "../features/events/eventsSlice";
 
-// The main categories (segments) from the Ticketmaster API
+//main categories from the Ticketmaster API
 const CATEGORIES = ["Music", "Sports", "Arts & Theatre", "Film", "Miscellaneous"];
 
 function Filters() {
-  // kept in local state while typing, only sent to Redux on submit
+  //kept in local state while typing and only sent to Redux on submit
   const [form, setForm] = useState({
     keyword: "",
     city: "",
