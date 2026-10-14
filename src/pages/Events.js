@@ -4,7 +4,10 @@ import EventCard from "../components/EventCard";
 import Filters from "../components/Filters";
 import Message from "../components/Message";
 import { fetchEvents, setPage } from "../features/events/eventsSlice";
-import { registerEvent } from "../features/registrations/registrationsSlice";
+import {
+  cancelEvent,
+  registerEvent,
+} from "../features/registrations/registrationsSlice";
 
 function Events() {
   const dispatch = useDispatch();
@@ -30,6 +33,13 @@ function Events() {
     );
   }
 
+  //ask first so one wrong click does not remove a registration
+  function handleCancel(event) {
+    if (window.confirm(`Cancel your registration for ${event.name}?`)) {
+      dispatch(cancelEvent({ userId: user.id, eventId: event.id }));
+    }
+  }
+
   return (
     <div>
       <h1>Events</h1>
@@ -37,10 +47,12 @@ function Events() {
       <Filters />
       <Message message={message} />
 
-      {loading && <p>Loading events...</p>}
-      {error && <p className="error">{error}</p>}
+      {loading && <p className="note">Loading events...</p>}
+      {error && <p className="note error">{error}</p>}
 
-      {!loading && !error && list.length === 0 && <p>No events found.</p>}
+      {!loading && !error && list.length === 0 && (
+        <p className="note">No events match your search.</p>
+      )}
 
       {!loading && !error && list.length > 0 && (
         <p className="results">{totalEvents} events found</p>
@@ -52,8 +64,11 @@ function Events() {
             {/*only logged in users see the register button*/}
             {user &&
               (isRegistered(event.id) ? (
-                <button className="btn" disabled>
-                  Registered
+                <button
+                  className="btn btn--danger"
+                  onClick={() => handleCancel(event)}
+                >
+                  Cancel
                 </button>
               ) : (
                 <button
